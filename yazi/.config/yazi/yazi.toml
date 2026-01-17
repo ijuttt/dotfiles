@@ -1,0 +1,13 @@
+[open]
+prepend_rules = [
+  { name = "*.txt", use = "edit" },
+  { name = "*.md",  use = "edit" }
+]
+
+[opener]
+# definisikan bagaimana cara buka/edit
+[[opener.edit]]
+run   = 'nvim "$@"'
+block = true
+desc  = "Neovim editor"
+

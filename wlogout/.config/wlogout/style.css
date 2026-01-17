@@ -1,0 +1,53 @@
+/* Simplified wallust-wlogout styles */
+
+/* Importing wallust colors */
+@import '../../.config/waybar/wallust/colors-waybar.css';
+
+window {
+    font-size: 17pt;
+    color: @foreground;
+    background-color: rgba(30, 30, 46, 0.8);
+    border-radius: 12px;
+}
+
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    margin: 20px;
+    padding: 20px;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    background-size: 30%;
+    color: @color13;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Button icons */
+#lock { background-image: image(url("./icons/lock.png")); }
+#lock:hover { background-image: image(url("./icons/lock-hover.png")); }
+
+#logout { background-image: image(url("./icons/logout.png")); }
+#logout:hover { background-image: image(url("./icons/logout-hover.png")); }
+
+#suspend { background-image: image(url("./icons/sleep.png")); }
+#suspend:hover { background-image: image(url("./icons/sleep-hover.png")); }
+
+#shutdown { background-image: image(url("./icons/power.png")); }
+#shutdown:hover { background-image: image(url("./icons/power-hover.png")); }
+
+#reboot { background-image: image(url("./icons/restart.png")); }
+#reboot:hover { background-image: image(url("./icons/restart-hover.png")); }
+
+#hibernate { background-image: image(url("./icons/hibernate.png")); }
+#hibernate:hover { background-image: image(url("./icons/hibernate-hover.png")); }

@@ -1,0 +1,389 @@
+/* Tokyo Night Moon Theme - Control Center */
+@define-color bg-primary    #222436;
+@define-color bg-secondary  #1e2030;
+@define-color bg-tertiary   #2f334d;
+@define-color text-primary  #ffffff;
+@define-color text-muted    #c0c0c0;
+@define-color accent        #82aaff;
+@define-color accent-dim    #3e68d7;
+@define-color purple        #c099ff;
+@define-color purple-dim    #9d7cd8;
+@define-color urgent        #ff757f;
+@define-color success       #c3e88d;
+
+* {
+  color: @text-primary;
+  all: unset;
+  font-size: 13px;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+  transition: 100ms;
+}
+
+.blank-window {  
+  background: transparent;
+}
+
+/* Notifications */
+.control-center .notification-row .notification-background,
+.control-center .notification-row .notification-background .notification.critical {
+  background-color: @bg-secondary;
+  border-radius: 6px;
+  margin: 3px 0;
+  padding: 2px;
+  border: 1px solid @bg-tertiary;
+}
+
+.control-center .notification-row .notification-background .notification.critical {
+  border-color: @urgent;
+}
+
+.control-center .notification-row .notification-background .notification .notification-content {
+  margin: 8px;
+  padding: 4px;
+}
+
+.control-center .notification-row .notification-background .notification > *:last-child > * {
+  min-height: 3em;
+}
+
+.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action {
+  background: @bg-tertiary;
+  color: @text-primary;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+}
+
+.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+  background: @accent-dim;
+  border-color: @accent;
+}
+
+.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+  background: @accent;
+}
+
+/* Close Button */
+.control-center .notification-row .notification-background .close-button {
+  background: transparent;
+  border-radius: 4px;
+  color: @text-muted;
+  margin: 4px;
+  padding: 4px;
+}
+
+.control-center .notification-row .notification-background .close-button:hover {
+  background: @urgent;
+  color: @bg-primary;
+}
+
+.control-center .notification-row .notification-background .close-button:active {
+  background: @urgent;
+}
+
+/* Progress Bar */
+progressbar, progress, trough {
+  border-radius: 4px;
+}
+
+progressbar {
+  background-color: @bg-tertiary;
+}
+
+progress {
+  background-color: @accent;
+}
+
+/* Notification Groups */
+.notification-group {
+  margin: 4px;
+}
+
+.notification-group-headers {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: @text-primary;
+}
+
+.notification-group-icon {
+  color: @purple;
+}
+
+.notification-group-collapse-button,
+.notification-group-close-all-button {
+  background: transparent;
+  color: @text-muted;
+  margin: 4px; 
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.notification-group-collapse-button:hover,
+.notification-group-close-all-button:hover {
+  background: @bg-tertiary;
+  color: @accent;
+}
+
+/* WIDGETS */
+
+/* Clear Button */
+.widget-title {
+  font-size: 1.1em;
+  margin: 8px 4px;
+  color: @text-primary;
+}
+
+.widget-title button {
+  background: @bg-secondary;
+  border-radius: 4px;
+  padding: 6px 12px;
+  border: 1px solid @bg-tertiary;
+}
+
+.widget-title button:hover {
+  background: @bg-tertiary;
+  border-color: @accent;
+}
+
+.widget-title button:active {
+  background: @accent-dim;
+}
+
+/* Do Not Disturb */
+.widget-dnd {
+  margin: 8px 4px;
+  font-size: 1.1rem;
+}
+
+.widget-dnd > switch {
+  background: @bg-secondary;
+  border-radius: 12px;
+  border: 1px solid @bg-tertiary;
+  box-shadow: none;
+  padding: 2px;
+}
+
+.widget-dnd > switch:hover {
+  border-color: @accent;
+}
+
+.widget-dnd > switch:checked {
+  background: @purple-dim;
+  border-color: @purple;
+}
+
+.widget-dnd > switch:checked:hover {
+  background: @purple;
+}
+
+.widget-dnd > switch slider {
+  background: @text-primary;
+  border-radius: 10px;
+}
+
+/* Buttons Grid */
+.widget-buttons-grid {
+  font-size: large;
+  padding: 4px;
+  margin: 8px 4px;
+  border-radius: 6px;
+  background: @bg-secondary;
+  border: 1px solid @bg-tertiary;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button {
+  margin: 3px 6px;
+  padding: 8px 12px;
+  background: @bg-tertiary;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  background: @accent-dim;
+  border-color: @accent;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:active {
+  background: @accent;
+}
+
+/* Music Player */
+.widget-mpris {
+  background: @bg-secondary;
+  border-radius: 6px;
+  border: 1px solid @bg-tertiary;
+  color: @text-primary;
+  margin: 8px 4px;
+  padding: 8px;
+}
+
+.widget-mpris-player {
+  background: @bg-primary;
+  border-radius: 6px;
+  padding: 8px;
+  margin: 4px 0;
+}
+
+.widget-mpris > box > button {
+  color: @text-primary;
+  border-radius: 4px;
+}
+ 
+.widget-mpris button {
+  color: @text-muted;
+}
+
+.widget-mpris button:hover {
+  color: @accent;
+}
+
+.widget-mpris-album-art {
+  border-radius: 4px;
+}
+ 
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+ 
+.widget-mpris-subtitle {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: @text-muted;
+}
+
+/* Volume */
+.widget-volume {
+  background: @bg-secondary;
+  border: 1px solid @bg-tertiary;
+  padding: 6px;
+  margin: 8px 4px;
+  border-radius: 4px;
+}
+/* CONTROL CENTER */
+.control-center {
+  background: @bg-primary;
+  border-radius: 8px;
+  border: 1px solid @bg-tertiary;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  margin: 12px;
+  padding: 8px;
+  max-width: 500px;
+  max-height: 90vh;
+}
+/* Tokyo Night Moon Theme - Floating Notifications */
+@define-color bg-primary    #222436;
+@define-color bg-secondary  #1e2030;
+@define-color bg-tertiary   #2f334d;
+@define-color text-primary  #ffffff;
+@define-color text-muted    #c0c0c0;
+@define-color accent        #82aaff;
+@define-color accent-dim    #3e68d7;
+@define-color purple        #c099ff;
+@define-color purple-dim    #9d7cd8;
+@define-color urgent        #ff757f;
+@define-color success       #c3e88d;
+
+* {
+  color: @text-primary;
+  all: unset;
+  font-size: 13px;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+  transition: 100ms;
+}
+
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background {
+  background: @bg-primary;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid @bg-tertiary;
+  border-radius: 6px;
+  margin: 8px;
+  padding: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification {
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification.critical {
+  border: 1px solid @urgent;
+  background: @bg-secondary;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-content {
+  margin: 4px 8px;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * {
+  min-height: 2.8em;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
+  border-radius: 4px;
+  background: @bg-tertiary;
+  margin: 4px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+  background: @accent-dim;
+  border-color: @accent;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+  background: @accent;
+  color: @bg-primary;
+}
+
+.image {
+  margin: 6px 12px 6px 0;
+  border-radius: 4px;
+}
+
+.summary {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: @text-primary;
+}
+
+.body {
+  font-size: 0.85rem;
+  color: @text-muted;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button {
+  margin: 6px;
+  padding: 4px;
+  border-radius: 4px;
+  background: transparent;
+  color: @text-muted;
+  border: 1px solid transparent;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button:hover {
+  background: @urgent;
+  color: @bg-primary;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button:active {
+  background: @urgent;
+}
+
+.notification.critical progress {
+  background-color: @urgent;
+}
+
+.notification.low progress,
+.notification.normal progress {
+  background-color: @accent;
+}
