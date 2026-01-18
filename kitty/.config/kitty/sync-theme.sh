@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Sinkronisasi tema Neovim -> Kitty + Waybar (jegesmk setup)
 
 THEME_NAME="$1"
 KITTY_THEME_DIR="$HOME/.config/kitty/themes"
