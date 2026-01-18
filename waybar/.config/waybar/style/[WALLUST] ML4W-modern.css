@@ -217,8 +217,8 @@ window#waybar.empty #window {
     background-color: @backgrounddark;
     color: @textcolor1;
     border-radius: 5px 5px 5px 5px;
-    padding: 0px 0px 0px 6px;
-    border:3px solid @bordercolor;
+    padding: 2px 0px 0px 5px;
+    border:0px solid @bordercolor;
 }
 
 #custom-keybinds {
@@ -256,10 +256,10 @@ window#waybar.empty #window {
 #clock {
     background-color: @backgrounddark;
     color: @textcolor1;
-    border-radius: 3px 5px 3px 5px;
+    border-radius: 4px 4px 4px 4px;
     padding: 1px 10px 0px 10px;
     margin: 3px 0px 3px 0px;
-    border:3px solid @bordercolor;   
+    border:0px solid @bordercolor;   
 }
 
 #backlight {
