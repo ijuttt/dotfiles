@@ -75,3 +75,4 @@ export VISUAL=nvim
 
 export __GL_THREADED_OPTIMIZATIONS=0
 export __GL_SYNC_TO_VBLANK=0
+eval "$(direnv hook zsh)"
