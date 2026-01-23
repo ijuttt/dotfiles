@@ -59,6 +59,10 @@ alias h='history'
 alias cd='z'
 alias lgit='lazygit'
 alias wlcp='wl-copy'
+alias man='batman'
+alias diff='batdiff'
+alias cat='bat --paging=never'
+alias less='bat --paging=always'
 
 # Shell integrations
 eval "$(fzf --zsh)"
