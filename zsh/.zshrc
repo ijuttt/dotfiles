@@ -1,53 +1,68 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+# ─────────────────────────────────────────────────────────────
+# Powerlevel10k Instant Prompt
+# ─────────────────────────────────────────────────────────────
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# ─────────────────────────────────────────────────────────────
+# Zinit (Plugin Manager)
+# ─────────────────────────────────────────────────────────────
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-# Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
+source "$ZINIT_HOME/zinit.zsh"
 
-# Add in zsh plugins
+# ─────────────────────────────────────────────────────────────
+# Plugins
+# ─────────────────────────────────────────────────────────────
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
 
-# Load Completions
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# ─────────────────────────────────────────────────────────────
+# Completion System
+# ─────────────────────────────────────────────────────────────
 autoload -Uz compinit
 compinit -u
 
-bindkey -v
-export KEYTIMEOUT=1
-
-# History size 
-HISTSIZE=10000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-setopt appendhistory
-setopt sharehistory
-unsetopt BANG_HIST
-
-# Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+# ─────────────────────────────────────────────────────────────
+# Keybind & Shell Behavior 
+# ─────────────────────────────────────────────────────────────
+bindkey -v
+KEYTIMEOUT=1
+
+# ─────────────────────────────────────────────────────────────
+# History
+# ─────────────────────────────────────────────────────────────
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+HISTFILE=~/.zsh_history
+setopt appendhistory
+setopt sharehistory
+unsetopt BANG_HIST
+
+# ─────────────────────────────────────────────────────────────
 # Aliases
+# ─────────────────────────────────────────────────────────────
 alias ls='eza'
 alias v='nvim'
 alias t='tmux'
@@ -64,19 +79,23 @@ alias diff='batdiff'
 alias cat='bat --paging=never'
 alias less='bat --paging=always'
 
-# Shell integrations
+# ─────────────────────────────────────────────────────────────
+# Shell Integrations
+# ─────────────────────────────────────────────────────────────
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
+eval "$(direnv hook zsh)"
 
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$PATH:$HOME/.npm-global/bin"
-# export PATH="$HOME/.venv/nvim/bin:$PATH"
-export BROWSER=zen-browser
+# ─────────────────────────────────────────────────────────────
+# Environment Variables
+# ─────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+
 export EDITOR=nvim
 export VISUAL=nvim
+export BROWSER=zen-browser
 
 export __GL_THREADED_OPTIMIZATIONS=0
 export __GL_SYNC_TO_VBLANK=0
-eval "$(direnv hook zsh)"
