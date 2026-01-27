@@ -1,0 +1,390 @@
+/* ==================== WAYBAR SHARP - GTK COMPATIBLE ==================== */
+/* Zero rounding | 2px borders | Flat design | GTK-safe animations */
+
+@import 'wallust/colors-waybar.css';
+
+/* ==================== COLOR SYSTEM - EXACT SWAYNC MAPPING ==================== */
+
+@define-color bg-primary rgba(0, 0, 4, 0.1);
+@define-color bg-secondary rgba(20, 20, 25, 0.4);
+@define-color bg-tertiary @color12;
+
+@define-color text-primary @foreground;
+@define-color text-muted @color8;
+
+@define-color accent @color13;
+@define-color border-active @color5;
+@define-color border-normal @color1;
+@define-color urgent @color9;
+
+/* ==================== GLOBAL - ZERO ROUNDING ==================== */
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font", monospace;
+    font-weight: bold;
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==================== WINDOW ==================== */
+window#waybar {
+    background: @bg-primary;
+    margin: 0 25px;
+}
+
+/* GTK-safe fade-in animation (no transform) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+window#waybar {
+    animation: fadeIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==================== TOOLTIPS ==================== */
+tooltip {
+    background: @bg-primary;
+    border: 1.5px solid @border-active;
+    border-radius: 0;
+    padding: 8px;
+}
+
+tooltip label {
+    color: @text-primary;
+}
+
+/* ==================== WORKSPACES ==================== */
+#workspaces {
+    background: @bg-secondary;
+    margin: 2px 2px;
+    padding: 1px;
+}
+
+#workspaces button {
+    padding: 1px 3px;
+    margin: 2px;
+    background: transparent;
+    color: @text-primary;
+    border: none;
+    min-width: 28px;
+}
+
+#workspaces button.active {
+    background: transparent;
+    border: 1.5px solid @bg-tertiary;
+    color: @text-primary;
+    min-width: 28px;
+}
+
+#workspaces button:hover {
+    background: @accent;
+    border-color: @border-active;
+}
+
+#workspaces button.urgent {
+    background: @urgent;
+    border-color: @urgent;
+    color: @bg-primary;
+}
+
+/* ==================== ALL MODULES - BASE STYLE ==================== */
+#backlight,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
+#disk,
+#idle_inhibitor,
+#keyboard-state,
+#memory,
+#mpris,
+#network,
+#power-profiles-daemon,
+#pulseaudio,
+#temperature,
+#tray,
+#custom-menu,
+#custom-power,
+#custom-swaync,
+#custom-lock,
+#custom-hypridle,
+#custom-cycle_wall,
+#custom-light_dark,
+#custom-hint,
+#custom-weather,
+#custom-updater,
+#custom-cava_mviz,
+#custom-playerctl {
+    margin: 2px 2px;
+    padding: 1px 4px;
+    background: @bg-secondary;
+    border: none;
+    color: @text-primary;
+}
+
+/* ==================== HOVER EFFECTS - CONSISTENT ==================== */
+#backlight:hover,
+#battery:hover,
+#bluetooth:hover,
+#cpu:hover,
+#disk:hover,
+#memory:hover,
+#network:hover,
+#pulseaudio:hover,
+#temperature:hover,
+#custom-updater:hover,
+#custom-menu:hover,
+#custom-cava_mviz:hover,
+#custom-playerctl:hover {
+    background: @accent;
+    border-color: @border-active;
+}
+
+/* ==================== CLOCK - HIGHLIGHT ==================== */
+#clock {
+    background: transparent;
+    border: 1.5px solid @bg-tertiary;
+    padding: 1px 4px;
+    margin: 2px 8px;
+    font-weight: bold;
+}
+
+#clock:hover {
+    background: @accent;
+    border-color: @border-active;
+}
+
+/* ==================== CUSTOM MODULES ==================== */
+
+#custom-updater {
+    background: transparent;
+    border: none;
+}
+
+#custom-menu {
+    background: @bg-tertiary;
+    border: none;
+    padding: 1px 4px;
+}
+
+#custom-power {
+    background: @bg-secondary;
+    border: none;
+    padding: 1px 4px;
+}
+
+#custom-power:hover {
+    background: @urgent;
+    border-color: @urgent;
+    color: @bg-primary;
+}
+
+#custom-swaync {
+    background: @bg-secondary;
+    border: none;
+    min-width: 32px;
+    padding: 0;
+}
+
+#custom-swaync:hover {
+    background: @accent;
+    border-color: @border-active;
+}
+
+/* ==================== IDLE INHIBITOR ==================== */
+#idle_inhibitor {
+    font-weight: bold;
+    min-width: 32px;
+    padding: 0;
+}
+
+#idle_inhibitor.activated {
+    background: @bg-secondary;
+    border: 1.5px solid @urgent;
+    color: @urgent;
+}
+
+/* ==================== AUDIO ==================== */
+#pulseaudio.muted {
+    background: @bg-secondary;
+    border: 1.5px solid @urgent;
+    color: @urgent;
+}
+
+/* ==================== NETWORK ==================== */
+#network.disconnected {
+    background: @urgent;
+    border: none;
+    color: @bg-primary;
+}
+
+/* ==================== BLUETOOTH ==================== */
+#bluetooth.off {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#bluetooth.on {
+    background: @bg-secondary;
+    border: none;
+}
+
+/* ==================== BATTERY ==================== */
+#battery.charging,
+#battery.plugged {
+    background: @bg-secondary;
+    border-color: @accent;
+    border: none;
+}
+
+#battery.good {
+    border-color: @border-normal;
+}
+
+#battery.warning {
+    background: @urgent;
+    border: none;
+    color: @bg-primary;
+}
+
+/* GTK-safe battery blink (opacity only) */
+@keyframes battery-blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: @urgent;
+    border: none;
+    color: @bg-primary;
+    animation: battery-blink 1s ease-in-out infinite;
+}
+
+/* ==================== TEMPERATURE ==================== */
+#temperature.critical {
+    background: @urgent;
+    border: none;
+    color: @bg-primary;
+}
+
+/* ==================== TRAY ==================== */
+#tray {
+    padding: 1px 3px;
+    background: @bg-secondary;
+    border: none;
+    margin: 2px 4px;
+}
+
+#tray>.passive {
+    background: transparent;
+}
+
+#tray>.needs-attention {
+    background: @urgent;
+    border-radius: 0;
+}
+
+/* ==================== KEYBOARD STATE ==================== */
+#keyboard-state {
+    margin: 2px 4px;
+    padding: 1px 3px;
+}
+
+/* ==================== MOTHERBOARD GROUP - DRAWER ==================== */
+
+.modules-right>widget>box>box {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+#cpu.not-memory,
+#memory.not-memory,
+#temperature.not-memory,
+#disk.not-memory {
+    margin: 2px 0;
+    padding: 1px 3px;
+}
+
+/* CPU as handle */
+#cpu {
+    background: transparent;
+    border: 1.5px solid @bg-tertiary;
+}
+
+/* ==================== MPRIS ==================== */
+#mpris {
+    background: @bg-secondary;
+    border: none;
+    padding: 1px 4px;
+}
+
+#mpris:hover {
+    background: @accent;
+    border-color: @border-active;
+}
+
+/* ==================== WINDOW TITLE ==================== */
+#window {
+    margin: 2px 8px;
+    padding: 1px 4px;
+    background: @bg-secondary;
+    border: none;
+    color: @text-primary;
+    font-weight: normal;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+    border: none;
+}
+
+/* ==================== ACTIVE/PRESSED STATES ==================== */
+#workspaces button:active,
+#clock:active,
+#custom-menu:active,
+#pulseaudio:active,
+#battery:active {
+    background: @border-active;
+    color: @bg-primary;
+}
+
+/* ==================== BACKLIGHT ==================== */
+#backlight {
+    background: @bg-secondary;
+    border: none;
+}
+
+/* ==================== FINAL POLISH ==================== */
+
+window#waybar,
+window#waybar>box,
+#workspaces,
+#workspaces button,
+tooltip,
+#tray,
+#tray>.passive,
+#tray>.needs-attention {
+    border-radius: 0;
+    box-shadow: none;
+}
