@@ -7,3 +7,10 @@
 gtk-3.0/.config/gtk-3.0/bookmarks
 qutebrowser/.config/qutebrowser/bookmarks
 qutebrowser/.config/qutebrowser/quickmarks
+
+# Wallust generated state wallpaper
+**/wallust/
+
+# Current wallpaper state
+rofi/.config/rofi/.current_wallpaper
+hypr/.config/hypr/wallpaper_effects/current.png
