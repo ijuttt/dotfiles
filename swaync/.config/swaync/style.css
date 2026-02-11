@@ -1,40 +1,70 @@
-/* Tokyo Night Moon Theme - Control Center */
-@define-color bg-primary    #222436;
-@define-color bg-secondary  #1e2030;
-@define-color bg-tertiary   #2f334d;
-@define-color text-primary  #ffffff;
-@define-color text-muted    #c0c0c0;
-@define-color accent        #82aaff;
-@define-color accent-dim    #3e68d7;
-@define-color purple        #c099ff;
-@define-color purple-dim    #9d7cd8;
-@define-color urgent        #ff757f;
-@define-color success       #c3e88d;
+@import "wallust/colors-wallust.css";
+
+/* Force solid colors - override wallust transparency */
+@define-color background rgba(0, 0, 4, 0.6);
+@define-color background-alt rgba(0, 0, 4, 0.6);
+
+/* Slide in from bottom animation */
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+}
+/* Wallust mapping - FLAT colors only */
+@define-color bg-primary    @background;
+@define-color bg-secondary  @background-alt;
+@define-color bg-tertiary   @button-background;
+
+@define-color text-primary  @text;
+@define-color text-muted    @cursor;
+
+@define-color accent        @hovered;
+@define-color border-active @hovered;
+@define-color border-normal @border;
+
+@define-color urgent        @urgent;
 
 * {
   color: @text-primary;
   all: unset;
   font-size: 13px;
   font-family: "JetBrains Mono Nerd Font", monospace;
-  transition: 100ms;
+  transition: 150ms cubic-bezier(0.16, 1, 0.3, 1);  /* Smooth slide */
 }
 
 .blank-window {  
   background: transparent;
 }
 
-/* Notifications */
+/* ==================== CONTROL CENTER ==================== */
+.control-center {
+  background: @bg-primary;
+  border-radius: 0;  /* SHARP - no rounding */
+  border: 2px solid @border-active;  /* Same as Hyprland border size */
+  box-shadow: none;  /* NO shadow */
+  margin: 0;
+  padding: 8px;
+}
+
+/* ==================== NOTIFICATIONS ==================== */
 .control-center .notification-row .notification-background,
 .control-center .notification-row .notification-background .notification.critical {
   background-color: @bg-secondary;
-  border-radius: 6px;
-  margin: 3px 0;
+  border-radius: 0;  /* SHARP */
+  margin: 2px 0;
   padding: 2px;
-  border: 1px solid @bg-tertiary;
+  border: 1px solid @border-normal;
 }
 
 .control-center .notification-row .notification-background .notification.critical {
   border-color: @urgent;
+  border-width: 2px;  /* Thicker for critical */
 }
 
 .control-center .notification-row .notification-background .notification .notification-content {
@@ -46,45 +76,45 @@
   min-height: 3em;
 }
 
+/* Action Buttons */
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action {
   background: @bg-tertiary;
   color: @text-primary;
-  border-radius: 4px;
+  border-radius: 0;  /* SHARP */
   margin: 4px;
   padding: 6px 12px;
-  border: 1px solid transparent;
+  border: 1px solid @border-normal;
 }
 
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-  background: @accent-dim;
-  border-color: @accent;
+  background: @accent;
+  border-color: @border-active;
 }
 
 .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-  background: @accent;
+  background: @border-active;
+  color: @bg-primary;
 }
 
 /* Close Button */
 .control-center .notification-row .notification-background .close-button {
   background: transparent;
-  border-radius: 4px;
+  border-radius: 0;
   color: @text-muted;
   margin: 4px;
   padding: 4px;
+  border: 1px solid transparent;
 }
 
 .control-center .notification-row .notification-background .close-button:hover {
   background: @urgent;
   color: @bg-primary;
-}
-
-.control-center .notification-row .notification-background .close-button:active {
-  background: @urgent;
+  border-color: @urgent;
 }
 
 /* Progress Bar */
 progressbar, progress, trough {
-  border-radius: 4px;
+  border-radius: 0;  /* SHARP */
 }
 
 progressbar {
@@ -95,37 +125,7 @@ progress {
   background-color: @accent;
 }
 
-/* Notification Groups */
-.notification-group {
-  margin: 4px;
-}
-
-.notification-group-headers {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: @text-primary;
-}
-
-.notification-group-icon {
-  color: @purple;
-}
-
-.notification-group-collapse-button,
-.notification-group-close-all-button {
-  background: transparent;
-  color: @text-muted;
-  margin: 4px; 
-  border-radius: 4px;
-  padding: 4px;
-}
-
-.notification-group-collapse-button:hover,
-.notification-group-close-all-button:hover {
-  background: @bg-tertiary;
-  color: @accent;
-}
-
-/* WIDGETS */
+/* ==================== WIDGETS ==================== */
 
 /* Clear Button */
 .widget-title {
@@ -136,18 +136,19 @@ progress {
 
 .widget-title button {
   background: @bg-secondary;
-  border-radius: 4px;
+  border-radius: 0;
   padding: 6px 12px;
-  border: 1px solid @bg-tertiary;
+  border: 1px solid @border-normal;
 }
 
 .widget-title button:hover {
-  background: @bg-tertiary;
-  border-color: @accent;
+  background: @accent;
+  border-color: @border-active;
 }
 
 .widget-title button:active {
-  background: @accent-dim;
+  background: @border-active;
+  color: @bg-primary;
 }
 
 /* Do Not Disturb */
@@ -158,28 +159,24 @@ progress {
 
 .widget-dnd > switch {
   background: @bg-secondary;
-  border-radius: 12px;
-  border: 1px solid @bg-tertiary;
+  border-radius: 0;  /* SHARP */
+  border: 1px solid @border-normal;
   box-shadow: none;
   padding: 2px;
 }
 
 .widget-dnd > switch:hover {
-  border-color: @accent;
+  border-color: @border-active;
 }
 
 .widget-dnd > switch:checked {
-  background: @purple-dim;
-  border-color: @purple;
-}
-
-.widget-dnd > switch:checked:hover {
-  background: @purple;
+  background: @accent;
+  border-color: @border-active;
 }
 
 .widget-dnd > switch slider {
   background: @text-primary;
-  border-radius: 10px;
+  border-radius: 0;  /* SHARP */
 }
 
 /* Buttons Grid */
@@ -187,33 +184,34 @@ progress {
   font-size: large;
   padding: 4px;
   margin: 8px 4px;
-  border-radius: 6px;
+  border-radius: 0;
   background: @bg-secondary;
-  border: 1px solid @bg-tertiary;
+  border: 1px solid @border-normal;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button {
-  margin: 3px 6px;
+  margin: 3px;
   padding: 8px 12px;
   background: @bg-tertiary;
-  border-radius: 4px;
-  border: 1px solid transparent;
+  border-radius: 0;  /* SHARP */
+  border: 1px solid @border-normal;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button:hover {
-  background: @accent-dim;
-  border-color: @accent;
+  background: @accent;
+  border-color: @border-active;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button:active {
-  background: @accent;
+  background: @border-active;
+  color: @bg-primary;
 }
 
 /* Music Player */
 .widget-mpris {
   background: @bg-secondary;
-  border-radius: 6px;
-  border: 1px solid @bg-tertiary;
+  border-radius: 0;  /* SHARP */
+  border: 1px solid @border-normal;
   color: @text-primary;
   margin: 8px 4px;
   padding: 8px;
@@ -221,14 +219,15 @@ progress {
 
 .widget-mpris-player {
   background: @bg-primary;
-  border-radius: 6px;
+  border-radius: 0;  /* SHARP */
   padding: 8px;
   margin: 4px 0;
+  border: 1px solid @border-normal;
 }
 
 .widget-mpris > box > button {
   color: @text-primary;
-  border-radius: 4px;
+  border-radius: 0;
 }
  
 .widget-mpris button {
@@ -240,7 +239,8 @@ progress {
 }
 
 .widget-mpris-album-art {
-  border-radius: 4px;
+  border-radius: 0;  /* SHARP */
+  border: 1px solid @border-normal;
 }
  
 .widget-mpris-title {
@@ -254,46 +254,7 @@ progress {
   color: @text-muted;
 }
 
-/* Volume */
-.widget-volume {
-  background: @bg-secondary;
-  border: 1px solid @bg-tertiary;
-  padding: 6px;
-  margin: 8px 4px;
-  border-radius: 4px;
-}
-/* CONTROL CENTER */
-.control-center {
-  background: @bg-primary;
-  border-radius: 8px;
-  border: 1px solid @bg-tertiary;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-  margin: 12px;
-  padding: 8px;
-  max-width: 500px;
-  max-height: 90vh;
-}
-/* Tokyo Night Moon Theme - Floating Notifications */
-@define-color bg-primary    #222436;
-@define-color bg-secondary  #1e2030;
-@define-color bg-tertiary   #2f334d;
-@define-color text-primary  #ffffff;
-@define-color text-muted    #c0c0c0;
-@define-color accent        #82aaff;
-@define-color accent-dim    #3e68d7;
-@define-color purple        #c099ff;
-@define-color purple-dim    #9d7cd8;
-@define-color urgent        #ff757f;
-@define-color success       #c3e88d;
-
-* {
-  color: @text-primary;
-  all: unset;
-  font-size: 13px;
-  font-family: "JetBrains Mono Nerd Font", monospace;
-  transition: 100ms;
-}
-
+/* ==================== FLOATING NOTIFICATIONS ==================== */
 .notification-row {
   outline: none;
   margin: 0;
@@ -302,20 +263,22 @@ progress {
 
 .floating-notifications.background .notification-row .notification-background {
   background: @bg-primary;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  border: 1px solid @bg-tertiary;
-  border-radius: 6px;
-  margin: 8px;
+  box-shadow: none;
+  border: 2px solid @border-active;
+  border-radius: 0;
+  margin: 4px;
   padding: 0;
+ 
+  animation: slideInFromBottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .floating-notifications.background .notification-row .notification-background .notification {
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification.critical {
-  border: 1px solid @urgent;
+  border: 2px solid @urgent;
   background: @bg-secondary;
 }
 
@@ -328,26 +291,27 @@ progress {
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
-  border-radius: 4px;
+  border-radius: 0;  /* SHARP */
   background: @bg-tertiary;
   margin: 4px;
   padding: 6px 12px;
-  border: 1px solid transparent;
+  border: 1px solid @border-normal;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
-  background: @accent-dim;
-  border-color: @accent;
+  background: @accent;
+  border-color: @border-active;
 }
 
 .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
-  background: @accent;
+  background: @border-active;
   color: @bg-primary;
 }
 
 .image {
   margin: 6px 12px 6px 0;
-  border-radius: 4px;
+  border-radius: 0;  /* SHARP */
+  border: 1px solid @border-normal;
 }
 
 .summary {
@@ -364,7 +328,7 @@ progress {
 .floating-notifications.background .notification-row .notification-background .close-button {
   margin: 6px;
   padding: 4px;
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   color: @text-muted;
   border: 1px solid transparent;
@@ -373,10 +337,7 @@ progress {
 .floating-notifications.background .notification-row .notification-background .close-button:hover {
   background: @urgent;
   color: @bg-primary;
-}
-
-.floating-notifications.background .notification-row .notification-background .close-button:active {
-  background: @urgent;
+  border-color: @urgent;
 }
 
 .notification.critical progress {

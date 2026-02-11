@@ -1,12 +1,11 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 # ─────────────────────────────────────────────────────────────
-# Powerlevel10k Instant Prompt
+# Powerlevel10k Instant Prompt (DISABLED - using Starship)
 # ─────────────────────────────────────────────────────────────
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # ─────────────────────────────────────────────────────────────
 # Zinit (Plugin Manager)
@@ -26,17 +25,22 @@ source "$ZINIT_HOME/zinit.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit ice wait lucid
 zinit light Aloxaf/fzf-tab
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
-
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# Powerlevel10k (DISABLED - using Starship)
+# zinit ice depth=1
+# zinit light romkatv/powerlevel10k
+# [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # ─────────────────────────────────────────────────────────────
 # Completion System
 # ─────────────────────────────────────────────────────────────
 autoload -Uz compinit
-compinit -u
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -69,10 +73,9 @@ alias t='tmux'
 alias ta='tmux attach -t'
 alias tn='tmux new -s'
 alias tls='tmux ls'
-alias trs='tmux rename-session -t'
 alias tkill='tmux kill-server'
+alias trs='tmux rename-session -t'
 alias h='history'
-alias cd='z'
 alias lgit='lazygit'
 alias wlcp='wl-copy'
 alias man='batman'
@@ -85,9 +88,12 @@ alias less='bat --paging=always'
 # ─────────────────────────────────────────────────────────────
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
-eval "$(direnv hook zsh)"
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 # ─────────────────────────────────────────────────────────────
 # Environment Variables
@@ -96,7 +102,12 @@ export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
 
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=zen-browser
+export BROWSER=xdg-open
 
 export __GL_THREADED_OPTIMIZATIONS=0
 export __GL_SYNC_TO_VBLANK=0
+
+# ─────────────────────────────────────────────────────────────
+# Starship Prompt
+# ─────────────────────────────────────────────────────────────
+eval "$(starship init zsh)"

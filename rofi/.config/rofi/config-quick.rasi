@@ -1,0 +1,134 @@
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* Quick Settings - Matched Style (UserDecorations) */
+
+@import "~/.config/rofi/config.rasi"
+
+/*****----- Main Window -----*****/
+window {
+    width:                        25%;
+    transparency:                 "real";
+    location:                     center;
+    anchor:                       center;
+    fullscreen:                   false;
+    x-offset:                     0px;
+    y-offset:                     0px;
+    enabled:                      true;
+    border:                       2px solid;
+    border-radius:                0px; /* Sharp Corners */
+    border-color:                 @border-color;
+    cursor:                       "default";
+    background-color:             @window-bg;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                      true;
+    spacing:                      10px;
+    margin:                       0px;
+    padding:                      20px;
+    border:                       0px solid;
+    border-radius:                0px;
+    background-color:             transparent;
+    children:                     [ "inputbar", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                      true;
+    spacing:                      10px;
+    margin:                       0px;
+    padding:                      0px;
+    border:                       0px;
+    border-radius:                0px;
+    background-color:             transparent;
+    text-color:                   @foreground-color;
+    children:                     [ "textbox-search", "entry" ];
+}
+
+textbox-search {
+    enabled:                      true;
+    expand:                       false;
+    str:                          "🔍";
+    padding:                      8px 12px;
+    border-radius:                0px; /* Sharp Corners */
+    background-color:             @active-background;
+    text-color:                   @active-foreground;
+    vertical-align:               0.5;
+}
+
+entry {
+    enabled:                      true;
+    padding:                      8px 12px;
+    border-radius:                0px; /* Sharp Corners */
+    background-color:             @active-background;
+    text-color:                   @foreground;
+    cursor:                       text;
+    placeholder:                  "Search Settings...";
+    vertical-align:               0.5;
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                      true;
+    columns:                      1;
+    lines:                        10;
+    cycle:                        true;
+    dynamic:                      true;
+    scrollbar:                    false;
+    layout:                       vertical;
+    reverse:                      false;
+    fixed-height:                 true;
+    fixed-columns:                true;
+    
+    spacing:                      5px;
+    margin:                       0px;
+    padding:                      10px 0px 0px 0px;
+    border:                       0px solid;
+    border-radius:                0px;
+    background-color:             transparent;
+    text-color:                   @foreground-color;
+    cursor:                       "default";
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                      true;
+    spacing:                      10px;
+    margin:                       0px;
+    padding:                      8px;
+    border:                       0px solid;
+    border-radius:                0px; /* Sharp Corners */
+    background-color:             transparent;
+    text-color:                   @foreground-color;
+    cursor:                       pointer;
+    orientation:                  horizontal;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @normal-foreground;
+}
+
+element selected.normal {
+    background-color:            @selected-normal-background;
+    text-color:                  @selected-normal-foreground;
+    border:                      0px solid; /* No border on selection in main theme */
+}
+
+/* Ensure icons are visible for this specific menu, even if main theme hides them */
+element-icon {
+    enabled:                     true; 
+    size:                        24px;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element-text {
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+    background-color:            transparent;
+    text-color:                  inherit;
+    font:                        "JetBrainsMono Nerd Font SemiBold 11";
+}

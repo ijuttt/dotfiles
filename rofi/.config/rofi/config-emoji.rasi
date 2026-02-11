@@ -3,6 +3,14 @@
 
 @import "~/.config/rofi/config.rasi" 
 
+/* Override to enable icons for emojis */
+configuration {
+    show-icons: true;
+}
+element-icon {
+    enabled: true;
+} 
+
 /* ---- Mainbox ---- */
 mainbox {
   children:

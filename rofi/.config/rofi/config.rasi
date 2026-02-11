@@ -2,12 +2,12 @@ configuration {
     /* General settings */
     modi: "drun,run,filebrowser,window";
     show-icons: true;
-    display-drun: " Apps";
-    display-run: " Run";
-    display-filebrowser: " Files";
-    display-window: " Windows";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-filebrowser: "Files";
+    display-window: "Windows";
     drun-display-format: "{name}";
-    window-format: "{w} · {c} · {t}";
+    window-format: "{w} {c} {t}";
 }
 
 /* Import the core fonts */
@@ -20,4 +20,4 @@ configuration {
    To follow Wallust colors, use a style that supports it, 
    like KooL_style-4.rasi which you were using.
 */
-@theme "themes/KooL_style-4.rasi"
+@theme "themes/UserDecorations.rasi"

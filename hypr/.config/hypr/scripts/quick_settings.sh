@@ -1,209 +1,273 @@
 #!/bin/bash
 # ##################################### #
+# Universal Quick Settings Dashboard    #
+# ##################################### #
+
 # Configuration
 config_file="$HOME/.config/hypr/UserConfigs/01-UserDefaults.conf"
 tmp_config_file=$(mktemp)
 sed 's/^\$//g; s/ = /=/g' "$config_file" >"$tmp_config_file"
 source "$tmp_config_file"
-
-# Cleanup temporary file on exit
 trap "rm -f $tmp_config_file" EXIT
 
-# ##################################### #
 # Variables
 configs="$HOME/.config/hypr/configs"
 UserConfigs="$HOME/.config/hypr/UserConfigs"
-rofi_theme="$HOME/.config/rofi/config-edit.rasi"
+rofi_theme="$HOME/.config/rofi/config-quick.rasi"
 iDIR="$HOME/.config/swaync/images"
 scriptsDir="$HOME/.config/hypr/scripts"
 UserScripts="$HOME/.config/hypr/UserScripts"
 LOG_FILE="$HOME/.cache/hypr-quicksettings.log"
 
-# ##################################### #
-# Error Handling for Editor & Terminal
+# Create log dir
+mkdir -p "$(dirname "$LOG_FILE")"
+
+# Error Handling
 if [ -z "$term" ] || [ -z "$edit" ]; then
   notify-send -i "$iDIR/error.png" "Configuration Error" "Terminal or Editor not set in config"
   exit 1
 fi
 
-# Ensure log directory exists
-mkdir -p "$(dirname "$LOG_FILE")"
+# ##################################### #
+# Status Checks
+# ##################################### #
+
+get_theme_mode() {
+  if [ -f "$HOME/.cache/.theme_mode" ]; then
+    cat "$HOME/.cache/.theme_mode"
+  else
+    echo "Unknown"
+  fi
+}
+
+get_hypridle_status() {
+  if pgrep -x "hypridle" >/dev/null; then
+    echo "ON"
+  else
+    echo "OFF"
+  fi
+}
+
+get_touchpad_status() {
+  local status_file="$XDG_RUNTIME_DIR/touchpad.status"
+  if [ -f "$status_file" ]; then
+    if [ "$(cat "$status_file")" = "true" ]; then
+      echo "ON"
+    else
+      echo "OFF"
+    fi
+  else
+    echo "ON"
+  fi
+}
+
+get_keyboard_layout() {
+  local layout_file="$HOME/.cache/kb_layout"
+  if [ -f "$layout_file" ]; then
+    cat "$layout_file" | tr '[:lower:]' '[:upper:]'
+  else
+    echo "US"
+  fi
+}
+
+# Get statuses
+current_mode=$(get_theme_mode)
+hypridle_status=$(get_hypridle_status)
+touchpad_status=$(get_touchpad_status)
+kb_layout=$(get_keyboard_layout)
 
 # ##################################### #
-# File mapping using associative array
-declare -A file_map=(
-  ["view/edit User Defaults"]="$UserConfigs/01-UserDefaults.conf"
-  ["view/edit ENV variables"]="$UserConfigs/ENVariables.conf"
-  ["view/edit Window Rules"]="$UserConfigs/WindowRules.conf"
-  ["view/edit User Keybinds"]="$UserConfigs/UserKeybinds.conf"
-  ["view/edit User Settings"]="$UserConfigs/UserSettings.conf"
-  ["view/edit Startup Apps"]="$UserConfigs/Startup_Apps.conf"
-  ["view/edit Decorations"]="$UserConfigs/UserDecorations.conf"
-  ["view/edit Animations"]="$UserConfigs/UserAnimations.conf"
-  ["view/edit Laptop Keybinds"]="$UserConfigs/Laptops.conf"
-  ["view/edit Default Keybinds"]="$configs/Keybinds.conf"
-)
-
+# Menu Definition
 # ##################################### #
-# Function to display the menu options
-menu() {
+
+# 1. Hyprland Configs
+menu_hypr_configs() {
   cat <<EOF
-view/edit User Defaults
-view/edit ENV variables
-view/edit Window Rules
-view/edit User Keybinds
-view/edit User Settings
-view/edit Startup Apps
-view/edit Decorations
-view/edit Animations
-view/edit Laptop Keybinds
-view/edit Default Keybinds
-Choose Kitty Terminal Theme
-Configure Monitors (nwg-displays)
-Configure Workspace Rules (nwg-displays)
-GTK Settings (nwg-look)
-QT Apps Settings (qt6ct)
-QT Apps Settings (qt5ct)
-Choose Hyprland Animations
-Choose Monitor Profiles
-Choose Rofi Themes
-Choose Waybar Styles
-Choose Waybar Layout
-Search for Keybinds
-Toggle Game Mode
-Switch Dark-Light Theme
-Change Wallpaper
-Wallpaper Effect
-Wallpaper Random
+📝 Hypr: User Defaults
+📝 Hypr: Keybinds (User)
+📝 Hypr: Keybinds (Default)
+📝 Hypr: Window Rules
+📝 Hypr: Startup Apps
+📝 Hypr: Decorations
+📝 Hypr: Animations
+📝 Hypr: Laptop Keybinds
+📝 Hypr: Environment Variables
+📝 Hypr: User Settings
+📝 Hypr: Workspace Rules
 EOF
 }
 
-# ##################################### #
-# Function to check if command exists
-check_command() {
-  local cmd=$1
-  local name=$2
-  if ! command -v "$cmd" &>/dev/null; then
-    notify-send -i "$iDIR/error.png" "E-R-R-O-R" "Install $name first"
-    echo "$(date): Error - $name not installed" >>"$LOG_FILE"
-    exit 1
-  fi
+# 2. Application Configs
+menu_app_configs() {
+  cat <<EOF
+⚡ App: Neovim
+⚡ App: Kitty
+⚡ App: Waybar Config
+⚡ App: SwayNC
+⚡ App: Cava
+⚡ App: Btop
+⚡ App: Rofi
+⚡ App: Zshrc
+EOF
+}
+
+# 3. Appearance & Theme
+menu_appearance() {
+  cat <<EOF
+🎨 Theme: Change Wallpaper
+🎨 Theme: Switch Dark/Light [$current_mode]
+🎨 Theme: Rofi
+🎨 Theme: Hyprland Animations
+🎨 Theme: Waybar Styles
+🎨 Theme: Waybar Layout
+🎨 Theme: Kitty
+🎨 Theme: Prompt
+🖼️  Theme: Wallpaper Effects
+🎲 Theme: Random Wallpaper
+EOF
+}
+
+# 4. System Controls
+menu_system() {
+  cat <<EOF
+🔄 Sys: Refresh Desktop
+💤 Sys: Idle Inhibitor [$hypridle_status]
+🖱️  Sys: Touchpad [$touchpad_status]
+⌨️  Sys: Keyboard Layout [$kb_layout]
+🔍 Sys: Search Keybinds
+🖥️  Sys: Monitor Settings
+🖥️  Sys: Monitor Profiles
+� Sys: GTK Settings
+🖌️  Sys: QT6 Settings
+🖌️  Sys: QT5 Settings
+🔒 Sys: Lock Screen
+📋 Sys: Clipboard Manager
+🚪 Sys: Power Menu
+EOF
+}
+
+# 5. System Utilities
+menu_utils() {
+  cat <<EOF
+🔊 Util: Audio Mixer
+📶 Util: Bluetooth
+🌐 Util: Network Manager
+📊 Util: System Monitor
+EOF
+}
+
+# Combine all menus
+menu_all() {
+  menu_hypr_configs
+  menu_app_configs
+  menu_appearance
+  menu_system
+  menu_utils
 }
 
 # ##################################### #
-# Main function to handle menu selection
-main() {
-  choice=$(menu | rofi -i -dmenu -config $rofi_theme -mesg "$msg")
+# Logic
+# ##################################### #
 
-  # Exit if no choice made
+main() {
+  # Show Rofi
+  choice=$(menu_all | rofi -dmenu -i -config "$rofi_theme" -p "Settings")
+
+  # Exit if cancelled
   [ -z "$choice" ] && exit 0
 
-  # Log the selection
-  echo "$(date): Selected - $choice" >>"$LOG_FILE"
+  echo "$(date): Selected '$choice'" >>"$LOG_FILE"
 
-  # Check if choice is a file to edit
-  if [[ -v file_map["$choice"] ]]; then
-    file="${file_map[$choice]}"
-
-    # Validate file exists
-    if [ ! -f "$file" ]; then
-      notify-send -i "$iDIR/error.png" "File Not Found" "$file does not exist"
-      echo "$(date): Error - File not found: $file" >>"$LOG_FILE"
-      exit 1
-    fi
-
-    # Open in editor
-    $term -e $edit "$file"
-    echo "$(date): Opened file: $file" >>"$LOG_FILE"
-    return
-  fi
-
-  # Handle command executions
+  # Map choices to commands
   case "$choice" in
-  "Choose Kitty Terminal Theme")
-    $scriptsDir/Kitty_themes.sh
-    ;;
+  # --- Hyprland Configs ---
+  *"Hypr: User Defaults"*)         file="$UserConfigs/01-UserDefaults.conf" ;;
+  *"Hypr: Keybinds (User)"*)       file="$UserConfigs/UserKeybinds.conf" ;;
+  *"Hypr: Keybinds (Default)"*)    file="$configs/Keybinds.conf" ;;
+  *"Hypr: Window Rules"*)          file="$UserConfigs/WindowRules.conf" ;;
+  *"Hypr: Startup Apps"*)          file="$UserConfigs/Startup_Apps.conf" ;;
+  *"Hypr: Decorations"*)           file="$UserConfigs/UserDecorations.conf" ;;
+  *"Hypr: Animations"*)            file="$UserConfigs/UserAnimations.conf" ;;
+  *"Hypr: Laptop Keybinds"*)       file="$UserConfigs/Laptops.conf" ;;
+  *"Hypr: Environment Variables"*) file="$UserConfigs/ENVariables.conf" ;;
+  *"Hypr: User Settings"*)         file="$UserConfigs/UserSettings.conf" ;;
+  *"Hypr: Workspace Rules"*)       file="$UserConfigs/WorkSpaceRules" ;;
 
-  "Change Wallpaper")
-    $UserScripts/WallpaperSelect.sh
-    ;;
+  # --- Application Configs ---
+  *"App: Neovim"*)                 file="$HOME/.config/nvim/init.lua" ;;
+  *"App: Kitty"*)                  file="$HOME/.config/kitty/kitty.conf" ;;
+  *"App: Waybar Config"*)          file="$HOME/.config/waybar/config" ;;
+  *"App: SwayNC"*)                 file="$HOME/.config/swaync/config.json" ;;
+  *"App: Cava"*)                   file="$HOME/.config/cava/config" ;;
+  *"App: Btop"*)                   file="$HOME/.config/btop/btop.conf" ;;
+  *"App: Rofi"*)                   file="$HOME/.config/rofi/config.rasi" ;;
+  *"App: Zshrc"*)                  file="$HOME/.zshrc" ;;
 
-  "Wallpaper Effect")
-    $UserScripts/WallpaperEffects.sh
-    ;;
+  # --- Appearance ---
+  *"Theme: Change Wallpaper"*)          $UserScripts/WallpaperSelect.sh ;;
+  *"Theme: Switch Dark/Light"*)         $scriptsDir/DarkLight.sh ;;
+  *"Theme: Rofi"*)                      $scriptsDir/RofiThemeSelector.sh ;;
+  *"Theme: Hyprland Animations"*)       $scriptsDir/Animations.sh ;;
+  *"Theme: Waybar Styles"*)             $scriptsDir/WaybarStyles.sh ;;
+  *"Theme: Waybar Layout"*)             $scriptsDir/WaybarLayout.sh ;;
+  *"Theme: Kitty"*)                     $scriptsDir/Kitty_themes.sh ;;
+  *"Theme: Prompt"*)
+      # Adaptive: Detect prompt framework and configure accordingly
+      if command -v starship &>/dev/null && grep -q "starship" "$HOME/.zshrc" 2>/dev/null; then
+        # Starship: Edit config file
+        file="$HOME/.config/starship.toml"
+      elif [ -f "$HOME/.p10k.zsh" ]; then
+        # Powerlevel10k: Run configuration wizard
+        $term -e zsh -ic "p10k configure"
+      else
+        notify-send "Prompt Config" "No supported prompt found (p10k/starship)"
+      fi
+      ;;
+  *"Theme: Wallpaper Effects"*)         $UserScripts/WallpaperEffects.sh ;;
+  *"Theme: Random Wallpaper"*)         
+      if echo -e "Yes\nNo" | rofi -dmenu -p "Apply random wallpaper?" -config "$rofi_theme" | grep -q "Yes"; then
+        $UserScripts/WallpaperRandom.sh
+      fi
+      ;;
 
-  "Wallpaper Random")
-    if echo -e "Yes\nNo" | rofi -dmenu -p "Apply random wallpaper?" -config $rofi_theme | grep -q "Yes"; then
-      $UserScripts/WallpaperRandom.sh
-      echo "$(date): Applied random wallpaper" >>"$LOG_FILE"
-    else
-      echo "$(date): Random wallpaper cancelled" >>"$LOG_FILE"
-    fi
-    ;;
+  # --- System ---
+  *"Sys: Refresh Desktop"*)        $scriptsDir/Refresh.sh ;;
+  *"Sys: Idle Inhibitor"*)         $scriptsDir/Hypridle.sh toggle ;;
+  *"Sys: Touchpad"*)               $scriptsDir/TouchPad.sh ;;
+  *"Sys: Keyboard Layout"*)        $scriptsDir/SwitchKeyboardLayout.sh ;;
+  *"Sys: Search Keybinds"*)        $scriptsDir/KeyBinds.sh ;;
+  *"Sys: Monitor Settings"*)       nwg-displays ;;
+  *"Sys: Monitor Profiles"*)       $scriptsDir/MonitorProfiles.sh ;;
+  *"Sys: GTK Settings"*)           nwg-look ;;
+  *"Sys: QT6 Settings"*)           qt6ct ;;
+  *"Sys: QT5 Settings"*)           qt5ct ;;
+  *"Sys: Lock Screen"*)            $scriptsDir/LockScreen.sh ;;
+  *"Sys: Clipboard Manager"*)      $scriptsDir/ClipManager.sh ;;
+  *"Sys: Power Menu"*)             $scriptsDir/Wlogout.sh ;;
 
-  "Configure Monitors (nwg-displays)" | "Configure Workspace Rules (nwg-displays)")
-    check_command "nwg-displays" "nwg-displays"
-    nwg-displays
-    ;;
-
-  "GTK Settings (nwg-look)")
-    check_command "nwg-look" "nwg-look"
-    nwg-look
-    ;;
-
-  "QT Apps Settings (qt6ct)")
-    check_command "qt6ct" "qt6ct"
-    qt6ct
-    ;;
-
-  "QT Apps Settings (qt5ct)")
-    check_command "qt5ct" "qt5ct"
-    qt5ct
-    ;;
-
-  "Choose Hyprland Animations")
-    $scriptsDir/Animations.sh
-    ;;
-
-  "Choose Monitor Profiles")
-    $scriptsDir/MonitorProfiles.sh
-    ;;
-
-  "Choose Rofi Themes")
-    $scriptsDir/RofiThemeSelector.sh
-    ;;
-
-  "Choose Waybar Styles")
-    $scriptsDir/WaybarStyles.sh
-    ;;
-
-  "Choose Waybar Layout")
-    $scriptsDir/WaybarLayout.sh
-    ;;
-
-  "Search for Keybinds")
-    $scriptsDir/KeyBinds.sh
-    ;;
-
-  "Toggle Game Mode")
-    $scriptsDir/GameMode.sh
-    ;;
-
-  "Switch Dark-Light Theme")
-    $scriptsDir/DarkLight.sh
-    ;;
-
+  # --- Utilities ---
+  *"Util: Audio Mixer"*)           $scriptsDir/ncpamixer.sh ;;
+  *"Util: Bluetooth"*)             $term -e bluetui ;;
+  *"Util: Network Manager"*)       nm-connection-editor ;;
+  *"Util: System Monitor"*)        $term -e btop ;;
+  
   *)
-    echo "$(date): Invalid choice - $choice" >>"$LOG_FILE"
-    return
-    ;;
+      notify-send "Error" "Unknown selection: $choice"
+      exit 1
+      ;;
   esac
 
-  echo "$(date): Executed command for: $choice" >>"$LOG_FILE"
+  # Open File logic
+  if [ -n "$file" ]; then
+    if [ -f "$file" ]; then
+        $term -e $edit "$file"
+    else
+        notify-send -u critical "Error" "File not found:\n$file"
+    fi
+  fi
 }
 
-# ##################################### #
-# Check if rofi is already running
+# Kill existing rofi
 if pidof rofi >/dev/null; then
   pkill rofi
 fi

@@ -74,8 +74,8 @@ RANDOM_PIC="${PICS[$((RANDOM % ${#PICS[@]}))]}"
 RANDOM_PIC_NAME=". random"
 
 # Rofi command
-# rofi_command="rofi -i -show -dmenu -config $rofi_theme -theme-str $rofi_override"
-rofi_command="rofi -i -show -dmenu"
+rofi_command="rofi -i -show -dmenu -config $rofi_theme -theme-str $rofi_override"
+# rofi_command="rofi -i -show -dmenu"
 
 # Sorting Wallpapers
 menu() {

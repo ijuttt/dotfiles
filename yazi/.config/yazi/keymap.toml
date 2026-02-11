@@ -1,4 +1,5 @@
 [mgr]
 prepend_keymap = [
   { on = "<C-d>", run = "shell 'dragon-drop -x -a \"$@\"' --confirm", desc = "Drag selected files out with dragon" },
+  {on = "<C-y>", run = ["plugin wl-clipboard"] },
 ]

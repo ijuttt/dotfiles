@@ -4,4 +4,6 @@
 *.save
 
 # Personal configs
-.config/gtk-3.0/bookmarks
+gtk-3.0/.config/gtk-3.0/bookmarks
+qutebrowser/.config/qutebrowser/bookmarks
+qutebrowser/.config/qutebrowser/quickmarks

@@ -4,8 +4,10 @@
 @import "~/.config/rofi/config.rasi"  
 
 /* ---- Configuration ---- */ 
+/* ---- Configuration ---- */ 
 configuration {
   modi: "drun";
+  show-icons: true;
 }
 
 window {
@@ -21,19 +23,17 @@ mainbox {
 
 entry {
   expand: true;
-  placeholder: " 🎞️ Search / Choose Wallpaper";
+  placeholder: " Search / Choose Wallpaper";
   horizontal-align: 0.5;
   horizontal-align: 0.5;
 }
 
 /* ---- Listview ---- */
 listview {
-  columns: 6;
+  columns: 4; /* Reduced columns to fit larger images */
   lines: 2;
   spacing: 20px;
   padding: 10px;
-  columns: 6;
-  lines: 2;
   flow: horizontal;
   fixed-width: true;
   fixed-height: true;
@@ -45,7 +45,7 @@ element {
   orientation: vertical;
   padding: 0px;
   spacing: 0px;
-  border-radius: 10px;
+  border-radius: 0px; /* Sharp corners consistency */
   padding: 0px;
   margin: 0px;
 }
@@ -55,9 +55,10 @@ element selected.normal {
 }
 
 element-icon {
+    enabled:                     true; /* Force Enable */
     text-color:                  inherit;
-    size:                        10%;
-    margin:                      -30px;
+    size:                        25%; /* Large preview */
+    margin:                      0px;
     cursor:                      inherit;
 }
 
