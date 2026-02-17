@@ -9,12 +9,14 @@
 # INITIAL SETUP
 # ============================================================================
 config.load_autoconfig(False)
-config.source('themes/gruvbox.py')
+config.source('themes/warm-brown.py')
 
 # ============================================================================
 # GENERAL SETTINGS
 # ============================================================================
 
+c.content.blocking.enabled = True
+c.content.blocking.method = 'both'
 # Auto-save
 c.auto_save.interval = 60000
 
@@ -134,15 +136,16 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{w
 # QT/CHROMIUM SETTINGS
 # ============================================================================
 
-c.qt.chromium.low_end_device_mode = 'auto'
+c.qt.chromium.low_end_device_mode = 'always'
 c.qt.chromium.process_model = 'process-per-site-instance'
+c.session.lazy_restore = True
 
 c.qt.args = [
     "ignore-gpu-blocklist",
     "enable-gpu-rasterization",
-    "enable-zero-copy",
-    "disable-gpu-driver-bug-workarounds",
-    "enable-accelerated-video-encode",
+    # "enable-zero-copy",
+    # "disable-gpu-driver-bug-workarounds",
+    # "enable-accelerated-video-encode",
 ]
 
 # ============================================================================
