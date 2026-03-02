@@ -14,3 +14,16 @@ qutebrowser/.config/qutebrowser/quickmarks
 # Current wallpaper state
 rofi/.config/rofi/.current_wallpaper
 hypr/.config/hypr/wallpaper_effects/current.png
+hypr/.config/hypr/wallpaper_effects/.wallpaper_current
+
+# Wallust-generated / runtime state
+kitty/.config/kitty/kitty-themes/
+kitty/.config/kitty/wallust-generated/
+qutebrowser/.config/qutebrowser/qsettings/
+
+# GTK4 theme symlinks (depend on installed theme, created by lxappearance/nwg-look)
+gtk-4.0/.config/gtk-4.0/gtk.css
+gtk-4.0/.config/gtk-4.0/gtk-dark.css
+
+# Systemd user services (use `systemctl --user enable` on new system instead)
+systemd/.config/systemd/user/
