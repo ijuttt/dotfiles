@@ -86,7 +86,7 @@
     // 5. Jam (24 Jam)
     "clock": {
         "interval": 1,
-        "format": " {:%H:%M:%S}   {:%d/%m}",
+        "format": " {:%H:%M:%S   %d/%m}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "year",
