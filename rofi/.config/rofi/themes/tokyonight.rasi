@@ -1,111 +1,50 @@
-/*******************************************************************************
- * Tokyo Night Theme for Rofi
- * Converted from Wofi config
- ******************************************************************************/
+ /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  
+ /* wallust template - colors-rofi */
 
 * {
-    bg-color:             #1d202f;
-    fg-color:             #c0caf5;
-    border-color:         #7aa2f7;
-    selected-bg:          #414868;
-    
-    background-color:     transparent;
-    text-color:           @fg-color;
-    font:                 "Inter Medium 12";
+active-background: #C6726E;
+active-foreground: #F8EDD8;
+normal-background: #000004;
+normal-foreground: #F8EDD8;
+urgent-background: #C6726E;
+urgent-foreground: #F8EDD8;
+
+alternate-active-background: #7A5457;
+alternate-active-foreground: #F8EDD8;
+alternate-normal-background: #000004;
+alternate-normal-foreground: #F8EDD8;
+alternate-urgent-background: #000004;
+alternate-urgent-foreground: #F8EDD8;
+
+selected-active-background: #C6726E;
+selected-active-foreground: #F8EDD8;
+selected-normal-background: #C6726E;
+selected-normal-foreground: #F8EDD8;
+selected-urgent-background: #C6726E;
+selected-urgent-foreground: #F8EDD8;
+
+background-color: #000004;
+background: rgba(0,0,0,0.7);
+foreground: #F8EDD8;
+border-color: #C6726E;
+
+color0: #000004;
+color1: #232830;
+color2: #2A2B32;
+color3: #5C3F41;
+color4: #945652;
+color5: #945652;
+color6: #B0996C;
+color7: #ECDDBF;
+color8: #A59B86;
+color9: #2F3540;
+color10: #383943;
+color11: #7A5457;
+color12: #C6726E;
+color13: #C6726E;
+color14: #EACC90;
+color15: #ECDDBF;
+
+
 }
 
-window {
-    background-color:     @bg-color;
-    border:               2px solid;
-    border-color:         @border-color;
-    border-radius:        10px;
-    padding:              20px;
-}
-
-mainbox {
-    background-color:     transparent;
-    spacing:              5px;
-}
-
-inputbar {
-    background-color:     @bg-color;
-    margin:               5px 5px 10px 5px;
-    padding:              5px;
-    spacing:              0px;
-    border:               0px 0px 1px 0px solid;
-    border-color:         @border-color;
-    children:             [ prompt, entry ];
-}
-
-prompt {
-    background-color:     @bg-color;
-    text-color:           @fg-color;
-    padding:              5px;
-}
-
-entry {
-    background-color:     @bg-color;
-    text-color:           @fg-color;
-    padding:              5px;
-    placeholder:          "Search...";
-    placeholder-color:    @fg-color;
-}
-
-listview {
-    background-color:     transparent;
-    margin:               5px;
-    spacing:              5px;
-    scrollbar:            false;
-}
-
-element {
-    background-color:     transparent;
-    text-color:           @fg-color;
-    padding:              8px;
-    border-radius:        5px;
-    border:               1px solid;
-    border-color:         #2a2e3e;
-    margin:               2px 0px;
-}
-
-element selected {
-    background-color:     @selected-bg;
-    text-color:           @fg-color;
-}
-
-element-text {
-    background-color:     inherit;
-    text-color:           inherit;
-}
-
-element-icon {
-    background-color:     inherit;
-    size:                 1.2em;
-}
-
-message {
-    background-color:     transparent;
-    padding:              5px;
-}
-
-textbox {
-    background-color:     @bg-color;
-    text-color:           @fg-color;
-    padding:              5px;
-}
-
-mode-switcher {
-    background-color:     transparent;
-    spacing:              5px;
-}
-
-button {
-    background-color:     @bg-color;
-    text-color:           @fg-color;
-    padding:              5px;
-}
-
-button selected {
-    background-color:     @selected-bg;
-    text-color:           @fg-color;
-}

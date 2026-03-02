@@ -129,13 +129,15 @@ config.set('content.media.audio_capture', True, 'https://chatgpt.com')
 config.set('content.notifications.enabled', True, 'https://web.whatsapp.com')
 
 # Local content access
-config.set('content.local_content_can_access_remote_urls', True, 'file:///home/jegesmk/.local/share/qutebrowser/userscripts/*')
-config.set('content.local_content_can_access_file_urls', False, 'file:///home/jegesmk/.local/share/qutebrowser/userscripts/*')
+import os
+_home = os.path.expanduser('~')
+config.set('content.local_content_can_access_remote_urls', True, f'file://{_home}/.local/share/qutebrowser/userscripts/*')
+config.set('content.local_content_can_access_file_urls', False, f'file://{_home}/.local/share/qutebrowser/userscripts/*')
 
 # Headers
-config.set('content.headers.accept_language', '', 'https://matchmaker.krunker.io/*')
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:145.0) Gecko/20100101 Firefox/145.0', 'https://accounts.google.com/*')
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version_short} Safari/{webkit_version}', 'https://gitlab.gnome.org/*')
+# config.set('content.headers.accept_language', '', 'https://matchmaker.krunker.io/*')
+# config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:145.0) Gecko/20100101 Firefox/145.0', 'https://accounts.google.com/*')
+# config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version_short} Safari/{webkit_version}', 'https://gitlab.gnome.org/*')
 
 # ============================================================================
 # QT/CHROMIUM SETTINGS

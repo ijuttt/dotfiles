@@ -12,7 +12,7 @@
         "custom/updater",
         "hyprland/workspaces",
         "tray",
-    // "custom/cava_mviz"    
+        // "custom/cava_mviz"    
         "custom/playerctl"
     ],
     "modules-center": [
@@ -39,7 +39,7 @@
         "tooltip-format": "{}: Updates Available"
     },
     "custom/cava_mviz": {
-        "exec": "/home/jegesmk/.config/hypr/scripts/WaybarCava.sh",
+        "exec": "$HOME/.config/hypr/scripts/WaybarCava.sh",
         "format": "{}"
     },
     "custom/playerctl": {
@@ -51,8 +51,8 @@
         "on-click": "playerctl previous",
         "on-click-right": "playerctl next",
         "scroll-step": 5.0,
-        "on-scroll-up": "/home/jegesmk/.config/hypr/scripts/Volume.sh --inc",
-        "on-scroll-down": "/home/jegesmk/.config/hypr/scripts/Volume.sh --dec",
+        "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
+        "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
         "smooth-scrolling-threshold": 1
     },
     // 2. Workspaces (Angka, Scroll Aktif, Hanya yang ada isi)
@@ -129,7 +129,7 @@
         },
         "scroll-step": 5,
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-right": "/home/jegesmk/.config/hypr/scripts/ncpamixer.sh",
+        "on-click-right": "$HOME/.config/hypr/scripts/ncpamixer.sh",
         "tooltip": true
     },
     // 8. Brightness
