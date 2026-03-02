@@ -88,12 +88,12 @@ alias less='bat --paging=always'
 # ─────────────────────────────────────────────────────────────
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-if command -v mise &> /dev/null; then
-  eval "$(mise activate zsh)"
-fi
-if command -v direnv &> /dev/null; then
-  eval "$(direnv hook zsh)"
-fi
+# if command -v mise &> /dev/null; then
+#   eval "$(mise activate zsh)"
+# fi
+# if command -v direnv &> /dev/null; then
+#   eval "$(direnv hook zsh)"
+# fi
 
 # ─────────────────────────────────────────────────────────────
 # Environment Variables
@@ -106,6 +106,11 @@ export BROWSER=xdg-open
 
 export __GL_THREADED_OPTIMIZATIONS=0
 export __GL_SYNC_TO_VBLANK=0
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
 
 # ─────────────────────────────────────────────────────────────
 # Starship Prompt

@@ -15,6 +15,8 @@ config.source('themes/warm-brown.py')
 # GENERAL SETTINGS
 # ============================================================================
 
+config.set('content.webgl', False, 'https://leads.upnvj.ac.id/*')
+# config.set('content.javascript.enabled', False, 'https://leads.upnvj.ac.id/*')
 c.content.blocking.enabled = True
 c.content.blocking.method = 'both'
 # Auto-save
@@ -78,15 +80,18 @@ c.downloads.position = 'bottom'
 # URL & SEARCH ENGINES
 # ============================================================================
 
-c.url.default_page = 'https://start.duckduckgo.com/'
-c.url.start_pages = 'https://start.duckduckgo.com'
+c.url.default_page = 'https://search.brave.com'
+c.url.start_pages = 'https://search.brave.com'
 
 c.url.searchengines = {
-    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
+    'DEFAULT': 'https://search.brave.com/search?q={}',
+
     'yt': 'https://www.youtube.com/results?search_query={}',
     'gh': 'https://github.com/search?q={}',
     'reddit': 'https://www.reddit.com/search?q={}',
-    'gm': 'https://www.google.com/maps/search/{}'
+    'gm': 'https://www.google.com/maps/search/{}',
+    'aw': 'https://wiki.archlinux.org/index.php?search={}',
+    'ddg': 'https://www.duckduckgo.com/?q={}'
 }
 
 # ============================================================================
@@ -141,8 +146,8 @@ c.qt.chromium.process_model = 'process-per-site-instance'
 c.session.lazy_restore = True
 
 c.qt.args = [
-    "ignore-gpu-blocklist",
-    "enable-gpu-rasterization",
+    # "ignore-gpu-blocklist",
+    # "enable-gpu-rasterization",
     # "enable-zero-copy",
     # "disable-gpu-driver-bug-workarounds",
     # "enable-accelerated-video-encode",
@@ -280,6 +285,7 @@ config.bind('R', 'reload -f')
 
 # -------------------- COMMAND MODE --------------------
 config.bind(':', 'cmd-set-text :')
+# config.bind('w', 'cmd-set-text -s :session-save --only-active-window ', mode='command')
 
 # -------------------- ESCAPE --------------------
 config.bind('<Escape>', 'clear-keychain ;; search ;; fullscreen --leave ;; jseval -q document.body.dispatchEvent(new MouseEvent("click", {bubbles: true, clientX: 0, clientY: 0}));')
