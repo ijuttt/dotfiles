@@ -8,18 +8,28 @@ gtk-3.0/.config/gtk-3.0/bookmarks
 qutebrowser/.config/qutebrowser/bookmarks
 qutebrowser/.config/qutebrowser/quickmarks
 
-# Wallust generated state wallpaper
-**/wallust/
+# Wallust generated state folders
+*/.config/*/wallust/
+# (This catches rofi/hypr/waybar/etc but not the top-level wallust/ dir)
 
 # Current wallpaper state
 rofi/.config/rofi/.current_wallpaper
 hypr/.config/hypr/wallpaper_effects/current.png
 hypr/.config/hypr/wallpaper_effects/.wallpaper_current
+hypr/.config/hypr/wallpaper_effects/.wallpaper_modified
 
 # Wallust-generated / runtime state
 kitty/.config/kitty/kitty-themes/
 kitty/.config/kitty/wallust-generated/
 qutebrowser/.config/qutebrowser/qsettings/
+
+# Wallust template targets (managed by wallust run)
+hypr/.config/hypr/wallust/wallust-hyprland.conf
+rofi/.config/rofi/wallust/colors-rofi.rasi
+waybar/.config/waybar/wallust/colors-waybar.css
+swaync/.config/swaync/wallust/colors-wallust.css
+kitty/.config/kitty/kitty-themes/01-Wallust.conf
+quickshell/.config/quickshell/qml_color.json
 
 # GTK4 theme symlinks (depend on installed theme, created by lxappearance/nwg-look)
 gtk-4.0/.config/gtk-4.0/gtk.css
