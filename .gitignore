@@ -27,3 +27,12 @@ gtk-4.0/.config/gtk-4.0/gtk-dark.css
 
 # Systemd user services (use `systemctl --user enable` on new system instead)
 systemd/.config/systemd/user/
+
+# Yazi plugins (managed by ya tool)
+yazi/.config/yazi/plugins/
+
+# Qutebrowser autoconfig
+qutebrowser/.config/qutebrowser/autoconfig.yml
+
+# ZapZap machine state
+ZapZap/.config/ZapZap/ZapZap.conf
