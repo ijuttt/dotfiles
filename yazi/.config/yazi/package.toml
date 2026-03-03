@@ -8,6 +8,11 @@ use = "grappas/wl-clipboard"
 rev = "e9a38e4"
 hash = "6b8e5d6b09626facec713923d3ddb54b"
 
+[[plugin.deps]]
+use = "boydaihungst/simple-tag"
+rev = "a971d5a"
+hash = "bd921661ea2be141a1ff182ed81d7012"
+
 [[flavor.deps]]
 use = "kalidyasin/yazi-flavors:tokyonight-moon"
 rev = "fa19b40"

@@ -3,6 +3,11 @@
 
 @import "~/.config/rofi/config.rasi"  
 
+/* ---- Configuration ---- */
+configuration {
+  show-icons: true;
+}
+
 /* ---- Window ---- */
 window {
   width: inherit;
@@ -24,19 +29,24 @@ entry {
 /* ---- Listview ---- */
 listview {
   columns: 1;
-  lines: 8;
-  fixed-height: true;
-  spacing: 6px;
+  lines: 10;
+  fixed-height: false;
+  spacing: 0px;
   cycle: true;
 }
 
 /* ---- Elements ---- */
 element {
   orientation: horizontal;
+  padding: 4px 8px;
+  spacing: 8px;
+  border-radius: 4px;
 }
 
 element-icon {
-  size: 0%;
+  enabled:    true;
+  size:       1.2em;
+  cursor:     inherit;
 }
 
 element-text {
