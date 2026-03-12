@@ -1,53 +1,55 @@
 @import "wallust/colors-wallust.css";
 
-/* Force solid colors - override wallust transparency */
-@define-color background rgba(0, 0, 4, 0.6);
-@define-color background-alt rgba(0, 0, 4, 0.6);
-
 /* Slide in from bottom animation */
 @keyframes slideInFromBottom {
   from {
     transform: translateY(100px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
   }
 
 }
+
 /* Wallust mapping - FLAT colors only */
-@define-color bg-primary    @background;
-@define-color bg-secondary  @background-alt;
-@define-color bg-tertiary   @button-background;
+@define-color bg-primary @background;
+@define-color bg-secondary @background-alt;
+@define-color bg-tertiary @button-background;
 
-@define-color text-primary  @text;
-@define-color text-muted    @cursor;
+@define-color text-primary @text;
+@define-color text-muted @cursor;
 
-@define-color accent        @hovered;
-@define-color border-active @hovered;
+@define-color accent @hovered;
+@define-color border-active @border;
 @define-color border-normal @border;
 
-@define-color urgent        @urgent;
+@define-color urgent @urgent;
 
 * {
   color: @text-primary;
   all: unset;
   font-size: 13px;
   font-family: "JetBrains Mono Nerd Font", monospace;
-  transition: 150ms cubic-bezier(0.16, 1, 0.3, 1);  /* Smooth slide */
+  transition: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* Smooth slide */
 }
 
-.blank-window {  
+.blank-window {
   background: transparent;
 }
 
 /* ==================== CONTROL CENTER ==================== */
 .control-center {
   background: @bg-primary;
-  border-radius: 0;  /* SHARP - no rounding */
-  border: 2px solid @border-active;  /* Same as Hyprland border size */
-  box-shadow: none;  /* NO shadow */
+  border-radius: 0;
+  /* SHARP - no rounding */
+  border: 2px solid @border-active;
+  /* Same as Hyprland border size */
+  box-shadow: none;
+  /* NO shadow */
   margin: 0;
   padding: 8px;
 }
@@ -56,7 +58,8 @@
 .control-center .notification-row .notification-background,
 .control-center .notification-row .notification-background .notification.critical {
   background-color: @bg-secondary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   margin: 2px 0;
   padding: 2px;
   border: 1px solid @border-normal;
@@ -64,7 +67,8 @@
 
 .control-center .notification-row .notification-background .notification.critical {
   border-color: @urgent;
-  border-width: 2px;  /* Thicker for critical */
+  border-width: 2px;
+  /* Thicker for critical */
 }
 
 .control-center .notification-row .notification-background .notification .notification-content {
@@ -72,26 +76,27 @@
   padding: 4px;
 }
 
-.control-center .notification-row .notification-background .notification > *:last-child > * {
+.control-center .notification-row .notification-background .notification>*:last-child>* {
   min-height: 3em;
 }
 
 /* Action Buttons */
-.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action {
+.control-center .notification-row .notification-background .notification>*:last-child>* .notification-action {
   background: @bg-tertiary;
   color: @text-primary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   margin: 4px;
   padding: 6px 12px;
   border: 1px solid @border-normal;
 }
 
-.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+.control-center .notification-row .notification-background .notification>*:last-child>* .notification-action:hover {
   background: @accent;
   border-color: @border-active;
 }
 
-.control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+.control-center .notification-row .notification-background .notification>*:last-child>* .notification-action:active {
   background: @border-active;
   color: @bg-primary;
 }
@@ -113,8 +118,11 @@
 }
 
 /* Progress Bar */
-progressbar, progress, trough {
-  border-radius: 0;  /* SHARP */
+progressbar,
+progress,
+trough {
+  border-radius: 0;
+  /* SHARP */
 }
 
 progressbar {
@@ -157,26 +165,28 @@ progress {
   font-size: 1.1rem;
 }
 
-.widget-dnd > switch {
+.widget-dnd>switch {
   background: @bg-secondary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   border: 1px solid @border-normal;
   box-shadow: none;
   padding: 2px;
 }
 
-.widget-dnd > switch:hover {
+.widget-dnd>switch:hover {
   border-color: @border-active;
 }
 
-.widget-dnd > switch:checked {
+.widget-dnd>switch:checked {
   background: @accent;
   border-color: @border-active;
 }
 
-.widget-dnd > switch slider {
+.widget-dnd>switch slider {
   background: @text-primary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
 }
 
 /* Buttons Grid */
@@ -193,7 +203,8 @@ progress {
   margin: 3px;
   padding: 8px 12px;
   background: @bg-tertiary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   border: 1px solid @border-normal;
 }
 
@@ -210,7 +221,8 @@ progress {
 /* Music Player */
 .widget-mpris {
   background: @bg-secondary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   border: 1px solid @border-normal;
   color: @text-primary;
   margin: 8px 4px;
@@ -219,17 +231,18 @@ progress {
 
 .widget-mpris-player {
   background: @bg-primary;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   padding: 8px;
   margin: 4px 0;
   border: 1px solid @border-normal;
 }
 
-.widget-mpris > box > button {
+.widget-mpris>box>button {
   color: @text-primary;
   border-radius: 0;
 }
- 
+
 .widget-mpris button {
   color: @text-muted;
 }
@@ -239,15 +252,16 @@ progress {
 }
 
 .widget-mpris-album-art {
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   border: 1px solid @border-normal;
 }
- 
+
 .widget-mpris-title {
   font-weight: 700;
   font-size: 1rem;
 }
- 
+
 .widget-mpris-subtitle {
   font-weight: 500;
   font-size: 0.85rem;
@@ -268,7 +282,7 @@ progress {
   border-radius: 0;
   margin: 4px;
   padding: 0;
- 
+
   animation: slideInFromBottom 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -286,31 +300,33 @@ progress {
   margin: 4px 8px;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * {
+.floating-notifications.background .notification-row .notification-background .notification>*:last-child>* {
   min-height: 2.8em;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
-  border-radius: 0;  /* SHARP */
+.floating-notifications.background .notification-row .notification-background .notification>*:last-child>* .notification-action {
+  border-radius: 0;
+  /* SHARP */
   background: @bg-tertiary;
   margin: 4px;
   padding: 6px 12px;
   border: 1px solid @border-normal;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
+.floating-notifications.background .notification-row .notification-background .notification>*:last-child>* .notification-action:hover {
   background: @accent;
   border-color: @border-active;
 }
 
-.floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
+.floating-notifications.background .notification-row .notification-background .notification>*:last-child>* .notification-action:active {
   background: @border-active;
   color: @bg-primary;
 }
 
 .image {
   margin: 6px 12px 6px 0;
-  border-radius: 0;  /* SHARP */
+  border-radius: 0;
+  /* SHARP */
   border: 1px solid @border-normal;
 }
 

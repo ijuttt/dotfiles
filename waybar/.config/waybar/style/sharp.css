@@ -5,8 +5,8 @@
 
 /* ==================== COLOR SYSTEM - EXACT SWAYNC MAPPING ==================== */
 
-@define-color bg-primary rgba(0, 0, 4, 0.1);
-@define-color bg-secondary rgba(20, 20, 25, 0.4);
+@define-color bg-primary @background;
+@define-color bg-secondary @background-alt;
 @define-color bg-tertiary @color12;
 
 @define-color text-primary @foreground;
@@ -31,7 +31,7 @@
 
 /* ==================== WINDOW ==================== */
 window#waybar {
-    background: @bg-primary;
+    background: @bg-secondary;
     margin: 0 25px;
 }
 
