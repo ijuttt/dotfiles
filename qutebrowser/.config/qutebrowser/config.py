@@ -14,7 +14,6 @@ config.source('themes/warm-brown.py')
 # ============================================================================
 # GENERAL SETTINGS
 # ============================================================================
-
 config.set('content.webgl', False, 'https://leads.upnvj.ac.id/*')
 # config.set('content.javascript.enabled', False, 'https://leads.upnvj.ac.id/*')
 c.content.blocking.enabled = True
@@ -53,7 +52,7 @@ c.statusbar.widgets = ['keypress', 'search_match', 'url', 'progress']
 # ============================================================================
 # Dark mode
 c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
+c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
 c.colors.webpage.darkmode.policy.images = 'smart'
 
 # ============================================================================
@@ -73,7 +72,8 @@ c.hints.chars = 'kwxuiopemrjql'
 # DOWNLOADS
 # ============================================================================
 
-c.downloads.location.remember = False
+c.downloads.location.directory = '~/Downloads/qute'
+c.downloads.location.remember = True
 c.downloads.position = 'bottom'
 
 # ============================================================================
@@ -143,11 +143,13 @@ config.set('content.local_content_can_access_file_urls', False, f'file://{_home}
 # QT/CHROMIUM SETTINGS
 # ============================================================================
 
-c.qt.chromium.low_end_device_mode = 'always'
+# c.qt.chromium.low_end_device_mode = 'always'
 c.qt.chromium.process_model = 'process-per-site-instance'
 c.session.lazy_restore = True
 
 c.qt.args = [
+    "use-gl=angle",
+    "use-angle=gl",
     # "ignore-gpu-blocklist",
     # "enable-gpu-rasterization",
     # "enable-zero-copy",
