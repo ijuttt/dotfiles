@@ -111,6 +111,10 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+#burpsuite
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 
 # ─────────────────────────────────────────────────────────────
 # Starship Prompt
